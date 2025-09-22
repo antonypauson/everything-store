@@ -1,13 +1,31 @@
-const express = require('express'); 
+const express = require("express");
+const db = require("./src/config/database");
 
-const app = express(); 
+const app = express();
 
-const PORT = 3000; 
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-    res.send('Testing backend'); 
-})
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-})
+/**
+ * test the database connection by a query
+ *
+ * @async
+ * @returns {Promise<void>} promise by awaiting for that query 
+ */
+const testConnection = async () => {
+  try {
+    const result = await db.query("SELECT NOW()");
+    console.log("Database connection successful", result.rows[0].now);
+  } catch (err) {
+    console.log("Database connection error");
+  }
+};
+
+app.get("/", (req, res) => {
+  res.send("Testing backend");
+});
+
+app.listen(PORT, async () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+  await testConnection(); 
+});
