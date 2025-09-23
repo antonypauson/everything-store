@@ -14,14 +14,33 @@ const dataBaseConfig: PoolConfig = {
 };
 
 
-const pool = new Pool(dataBaseConfig);
+//we don't want db to intialize intially
+let pool: Pool; 
+
+//pool only if intialized
+export const intializeDB = async (): Promise<void> => {
+  if (pool) {
+    console.log("Database pool is already intialized"); 
+  }
+  try {
+    pool = new Pool(dataBaseConfig); 
+  } catch (error) {
+    console.log('Failed to intialize db pool', error); 
+  }
+}
+
+//end the pool
+export const closeDB = async (): Promise<void> => {
+  if (pool) {
+    await pool.end();
+    console.log("Database pool closed");
+  } else {
+    console.log("Database pool already closed");
+  }
+};
 
 
 // we dont have to call 'pool.query()'
-const query = (text: string, params?: any[]): Promise<QueryResult> => {
+export const query = (text: string, params?: any[]): Promise<QueryResult> => {
   return pool.query(text, params); 
-}
-
-export default {
-    query
 }

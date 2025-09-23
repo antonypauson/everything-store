@@ -1,7 +1,7 @@
-import db from "./config/database";
+import {query} from "./config/database";
 
 export const testDbConnection = async () => {
-  const res = await db.query("SELECT NOW()");
+  const res = await query("SELECT NOW()");
   console.log(res.rows[0].now);
   console.log("Successful connection");
 };
