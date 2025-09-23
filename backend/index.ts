@@ -1,11 +1,7 @@
-import express from 'express'; 
-import { Request, Response } from 'express';
+import app from './src/app'; //express app
 import db from './src/config/database'; 
 
-const app = express();
-
 const PORT = process.env.PORT || 3000;
-
 
 /**
  * test the database connection by a query
@@ -21,10 +17,6 @@ const testConnection = async (): Promise<void> => {
     console.log("Database connection error");
   }
 };
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Testing backend");
-});
 
 app.listen(PORT, async () => {
   console.log(`Server is running on http://localhost:${PORT}`);
