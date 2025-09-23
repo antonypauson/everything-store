@@ -1,20 +1,29 @@
 import type { Knex } from "knex";
-import 'dotenv/config'; 
-// Update with your config settings.
+const dotenv = require('dotenv'); 
+const path = require('path'); 
+
+// .env not capturing fix
+const envPath = path.resolve(__dirname, "../.env");
+console.log("Loading .env from:", envPath);
+
+dotenv.config({ path: envPath });
+
+// check password
+// console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
 
 const config: { [key: string]: Knex.Config } = {
   development: {
     client: "pg",
     connection: {
       host: process.env.DB_HOST,
-      port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
+      port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432, // Ensure port is a number
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
     },
     migrations: {
-      directory: "./src/migrations/knex", //where to look for migration files
-      tableName: "knex_migrations", //table tracking migrations
+      directory: "./migrations/knex", 
+      tableName: "knex_migrations", // table tracking migrations
       extension: "ts", // TypeScript
     },
     //seeds
@@ -45,4 +54,4 @@ const config: { [key: string]: Knex.Config } = {
   // }
 };
 
-export default config; 
+module.exports = config; 
