@@ -5,14 +5,6 @@ import {Pool, PoolConfig, QueryResult} from 'pg';
 
 //  Configuration for our PostgreSQL pool
 //  using our .env file
-interface DataBaseConfig {
-  user?: string; 
-  host?: string; 
-  database?: string; 
-  password?: string; 
-  port?: number; 
-}
-
 const dataBaseConfig: PoolConfig = {
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
