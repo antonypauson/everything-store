@@ -1,5 +1,6 @@
-const express = require("express");
-const db = require("./src/config/database");
+import express from 'express'; 
+import { Request, Response } from 'express';
+import db from './src/config/database'; 
 
 const app = express();
 
@@ -12,7 +13,7 @@ const PORT = process.env.PORT || 3000;
  * @async
  * @returns {Promise<void>} promise by awaiting for that query 
  */
-const testConnection = async () => {
+const testConnection = async (): Promise<void> => {
   try {
     const result = await db.query("SELECT NOW()");
     console.log("Database connection successful", result.rows[0].now);
@@ -21,7 +22,7 @@ const testConnection = async () => {
   }
 };
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Testing backend");
 });
 
