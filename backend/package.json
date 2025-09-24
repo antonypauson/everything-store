@@ -6,7 +6,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "nodemon --watch src --exec \"npm run build && node dist/index.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typeorm": "node -r dotenv/config -r ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +16,10 @@
   "dependencies": {
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
-    "knex": "^3.1.0"
+    "knex": "^3.1.0",
+    "reflect-metadata": "^0.2.2",
+    "tsconfig-paths": "^4.2.0",
+    "typeorm": "^0.3.27"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
