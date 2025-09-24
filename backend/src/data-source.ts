@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   synchronize: false, //don't update schema automatically
-  logging: true,
+  logging: false,
   entities: [User, Product],
   subscribers: [],
   migrations: ["src/migration/*.ts"],
@@ -23,5 +23,7 @@ export const initializeTypeORM = async () => {
     console.log('initialized typeORM'); 
   } catch (error) {
     console.log('could not initialize typeORM', error);
+  } finally {
+    await AppDataSource.destroy();
   }
 };
