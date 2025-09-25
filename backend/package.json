@@ -5,8 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "nodemon --watch src --exec \"npm run build && node dist/index.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon",
     "typeorm": "node -r dotenv/config -r ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "seed": "node -r dotenv/config -r ts-node/register -r tsconfig-paths/register ./src/seed.ts"
   },
