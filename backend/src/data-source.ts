@@ -23,7 +23,5 @@ export const initializeTypeORM = async () => {
     console.log('initialized typeORM'); 
   } catch (error) {
     console.log('could not initialize typeORM', error);
-  } finally {
-    await AppDataSource.destroy();
   }
 };
