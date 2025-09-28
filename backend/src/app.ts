@@ -3,14 +3,13 @@ import express from "express";
 import { Request, Response } from "express";
 import { AppDataSource } from "./data-source";
 import { User } from "./entity/User";
+import userRouter from "./routes/user.routes"; 
 const app = express();
 
 app.use(express.json());
 
 //define a home root
-app.get("/", (req: Request, res: Response) => {
-  res.send("Testing backend");
-});
+app.use("/api/users", userRouter);
 
 //GET users
 app.get("/users", async (req: Request, res: Response) => {
