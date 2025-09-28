@@ -4,7 +4,7 @@ import { UserService } from "../services/user.service";
 export class UserController {
   private userService = new UserService();
 
-  async getAllUsers(req: Request, res: Response) {
+  getAllUsers = async (req: Request, res: Response) =>  {
     try {
       const users = await this.userService.getAllUsers();
       res.json(users);
@@ -14,7 +14,7 @@ export class UserController {
     }
   }
 
-  async getUserByid(req: Request, res: Response) {
+  getUserByid = async (req: Request, res: Response) => {
     try {
       const user = await this.userService.getUserById(parseInt(req.params.id));
       res.json(user);
@@ -24,7 +24,7 @@ export class UserController {
     }
   }
 
-  async createNewUser(req: Request, res: Response) {
+  createNewUser = async (req: Request, res: Response) => {
     try {
       const { username, email, password, role } = req.body;
 
@@ -49,7 +49,7 @@ export class UserController {
     }
   }
 
-  async updateUser(req: Request, res: Response) {
+  updateUser = async (req: Request, res: Response) => {
     try {
       const id = req.params.id;
       const { username, password, email } = req.body;
@@ -73,7 +73,7 @@ export class UserController {
     }
   }
 
-  async deleteUser(req: Request, res: Response) {
+  deleteUser = async (req: Request, res: Response) => {
     try {
       const id = req.params.id;
 

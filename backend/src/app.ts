@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 //define a home root
-app.use("/api/users", userRouter);
+app.use("/api/users", userRouter());
 
 //GET users
 app.get("/users", async (req: Request, res: Response) => {
