@@ -26,11 +26,15 @@ export class UserService {
             throw new Error("User not found"); 
         }
         const {username, email, password} = userData; 
-        
+
         if (username) user.username = username; 
         if (email) user.email = email; 
         if (password) user.password = password; 
 
         return this.userRepository.save(user); 
+    }
+
+    async deleteUser(id: number) {
+        return await this.userRepository.delete(id); 
     }
 }

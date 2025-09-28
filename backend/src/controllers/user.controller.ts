@@ -36,35 +36,57 @@ export class UserController {
       }
 
       const newUser = await this.userService.createUser({
-        username, 
-        email, 
-        password, 
-        role: role || 'user'
-      })
+        username,
+        email,
+        password,
+        role: role || "user",
+      });
 
-      res.json(newUser); 
-
+      res.json(newUser);
     } catch (error) {
-        console.log("Error creating user: ", error);
-        res.status(500).json({ message: "Failed to create user" });
+      console.log("Error creating user: ", error);
+      res.status(500).json({ message: "Failed to create user" });
     }
   }
 
   async updateUser(req: Request, res: Response) {
     try {
-        const id = req.params.id; 
-        const {username, password, email} = req.body; 
+      const id = req.params.id;
+      const { username, password, email } = req.body;
 
-        if (!username && !password && !email) {
-            return res.status(400).json({ message: "At least one field must be provided for update" });
-        }
-        
-        const updatedUser = await this.userService.updateUser(parseInt(id), {username, password, email}); 
-        
-        res.json(updatedUser); 
+      if (!username && !password && !email) {
+        return res
+          .status(400)
+          .json({ message: "At least one field must be provided for update" });
+      }
+
+      const updatedUser = await this.userService.updateUser(parseInt(id), {
+        username,
+        password,
+        email,
+      });
+
+      res.json(updatedUser);
     } catch (error) {
-         console.log("Error updating user: ", error);
-         res.status(500).json({ message: "Failed to update user" });
+      console.log("Error updating user: ", error);
+      res.status(500).json({ message: "Failed to update user" });
+    }
+  }
+
+  async deleteUser(req: Request, res: Response) {
+    try {
+      const id = req.params.id;
+
+      const deleteResult = await this.userService.deleteUser(parseInt(id));
+
+      if (deleteResult.affected == 1) {
+        res.status(200).json({ message: `User ${id} deleted successfully` });
+      } else {
+        res.status(404).json({ message: `User ${id} not found` }); // User not found if affected is 0
+      }
+    } catch (error) {
+        console.log("Error deleting", error);
+        res.status(500).json({ message: "Failed to delete user" });
     }
   }
 }
