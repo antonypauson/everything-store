@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
-import { MockService } from "../services/user.service";
+import { UserService } from "../services/user.service";
 
-export class MockController {
-    private mockService = new MockService(); 
+export class UserController {
+  private userService = new UserService();
 
-    serviceMessage(req:Request, res: Response) {
-        const message = this.mockService.getWelcomeMessage(); 
-        res.json(message); 
+  async getAllUsers(req: Request, res: Response) {
+    try {
+      const users = await this.userService.getAllUsers();
+      res.json(users);
+    } catch (error) {
+      console.log("Error in User Controller", error);
+      res.status(500).json({ message: "Failed to fetch users" });
     }
+  }
 }

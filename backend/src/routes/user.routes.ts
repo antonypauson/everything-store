@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { MockController } from "../controllers/user.controller";
+import { UserController } from "../controllers/user.controller";
 
 const router = Router(); 
-const controller = new MockController(); 
+const controller = new UserController(); 
 
-router.get('/', controller.serviceMessage.bind(controller)); // Bind 'this' context
-
+//GET 
+router.get('/', controller.getAllUsers.bind(controller)); 
 export default router;
