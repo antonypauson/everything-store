@@ -13,4 +13,14 @@ export class UserController {
       res.status(500).json({ message: "Failed to fetch users" });
     }
   }
+
+  async getUserByid(req: Request, res: Response) {
+    try {
+        const user = await this.userService.getUserById(parseInt(req.params.id)); 
+        res.json(user); 
+    } catch (error) {
+         console.log("Error in User Controller", error);
+         res.status(500).json({ message: "Failed to fetch user" });
+    }
+  }
 }

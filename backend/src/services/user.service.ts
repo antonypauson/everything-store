@@ -6,4 +6,11 @@ export class UserService {
     async getAllUsers() {
         return this.userRepository.find(); 
     }
+
+    async getUserById(id:number) {
+        const user = this.userRepository.findOneBy({
+            id: id
+        })
+        return user; 
+    }
 }
