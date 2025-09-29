@@ -2,16 +2,17 @@
 import express from "express";
 import { Request, Response } from "express";
 import { AppDataSource } from "./data-source";
-import { User } from "./entity/User";
 import userRouter from "./routes/user.routes";
+import productRouter from './routes/product.routes'; 
 import { Product } from "./entity/Product";
 
 const app = express();
 
 app.use(express.json());
 
-//define a home root
 app.use("/api/users", userRouter());
+
+app.use("/api/products", productRouter()); 
 
 // //GET users
 // app.get("/users", async (req: Request, res: Response) => {
