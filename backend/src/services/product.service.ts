@@ -14,4 +14,30 @@ export class ProductService {
         })
         return product; 
     }
+
+    async createProduct(productData: Partial<Product>) {
+        const newProduct = this.productRepository.create(productData); 
+        return this.productRepository.save(newProduct); 
+    }
+
+    async updateProduct(id: number, productData: Partial<Product>) {
+        const product = await this.getProductById(id); 
+
+        if (!product) {
+            throw new Error('Product not found'); 
+        }
+
+        const { name, description, price, stock } = productData; 
+
+        if (name) product.name = name; 
+        if (description) product.description = description; 
+        if (price) product.price = price; 
+        if (stock) product.stock = stock; 
+
+        return this.productRepository.save(product); 
+    }
+
+    async deleteProduct(id: number) {
+        return await this.productRepository.delete(id); 
+    }
 }
