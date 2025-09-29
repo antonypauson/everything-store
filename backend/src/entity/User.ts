@@ -1,5 +1,6 @@
 //User entity
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { Review } from "./Review";
 
 @Entity('users')
 export class User {
@@ -23,4 +24,8 @@ export class User {
 
     @UpdateDateColumn()
     updatedAt!: Date; 
+
+    //relation of Review entity
+    @OneToMany(() => Review, review => review.user)
+    reviews!: Review[]; 
 }
