@@ -46,7 +46,6 @@ describe("Product Service", () => {
     (productRepository.create as jest.Mock).mockReturnValue(productData);
     (productRepository.save as jest.Mock).mockReturnValue(resultData);
 
-    //what does this do?
     const result = await productService.createProduct(productData);
 
     //assertions
@@ -86,5 +85,39 @@ describe("Product Service", () => {
     //assertion
     expect(productRepository.find).toHaveBeenCalledTimes(1);
     expect(result).toEqual(allProducts); 
+  })
+
+  it ('should get product', async () => {
+    const allProducts: Product[] = [
+      {
+        id: 1,
+        name: "Testing product Data",
+        description: "its my testing product",
+        price: 3232323,
+        stock: 100,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 2,
+        name: "Testing product Data",
+        description: "its my testing product",
+        price: 3232323,
+        stock: 100,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
+    const productId = 1; 
+
+    //return
+    (productRepository.findOneBy as jest.Mock).mockResolvedValue(allProducts.find(product => product.id === productId)); 
+
+    const result = await productService.getProductById(productId); 
+
+    //assertions
+    expect(productRepository.findOneBy).toHaveBeenCalledWith({id:productId}); 
+    expect(result).toEqual(allProducts[0]); 
+
   })
 });
