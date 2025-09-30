@@ -118,6 +118,38 @@ describe("Product Service", () => {
     //assertions
     expect(productRepository.findOneBy).toHaveBeenCalledWith({id:productId}); 
     expect(result).toEqual(allProducts[0]); 
+  })
 
+  it ('should update product', async () => {
+    const  productId = 1; 
+    const productData: Product = {
+      id: productId,
+      name: 'Testing name',
+      description: 'testing desc',
+      price: 100,
+      stock: 5,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const updatedData = {
+        name: "updated testing name", 
+        description: "updating testing desc"
+    }; 
+
+    //return
+    (productRepository.findOneBy as jest.Mock).mockResolvedValue(productData); 
+    (productRepository.save as jest.Mock).mockResolvedValue({
+        ...productData, ...updatedData
+    })
+
+    const result = await productService.updateProduct(productId, updatedData); 
+
+    //assertion
+    expect(productRepository.findOneBy).toHaveBeenCalledWith({id: productId}); 
+    expect(productRepository.save).toHaveBeenCalledWith(expect.objectContaining({...productData, ...updatedData})); 
+    expect(result).toEqual({
+      ...productData,
+      ...updatedData,
+    });
   })
 });
