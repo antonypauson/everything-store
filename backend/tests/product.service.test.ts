@@ -55,4 +55,36 @@ describe("Product Service", () => {
     expect(productRepository.save).toHaveBeenCalledWith(productData);
     expect(result).toEqual(resultData);
   });
+
+  it ('should get all products', async () => {
+    const allProducts: Product[] = [
+      {
+        id: 1,
+        name: "Testing product Data",
+        description: "its my testing product",
+        price: 3232323,
+        stock: 100,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 2,
+        name: "Testing product Data",
+        description: "its my testing product",
+        price: 3232323,
+        stock: 100,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
+
+    //returns
+    (productRepository.find as jest.Mock).mockResolvedValue(allProducts); 
+
+    const result = await productService.getAllProducts(); 
+
+    //assertion
+    expect(productRepository.find).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(allProducts); 
+  })
 });
