@@ -26,5 +26,5 @@ export class Product {
 
   //relation of Review entity
   @OneToMany(() => Review, review => review.product)
-  reviews!: Review[]; 
+  reviews?: Review[]; 
 }

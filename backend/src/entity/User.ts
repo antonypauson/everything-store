@@ -27,5 +27,5 @@ export class User {
 
     //relation of Review entity
     @OneToMany(() => Review, review => review.user)
-    reviews!: Review[]; 
+    reviews?: Review[]; 
 }
