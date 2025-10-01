@@ -152,4 +152,17 @@ describe("Product Service", () => {
       ...updatedData,
     });
   })
+
+  it ('should delete a product', async () => {
+    const productId = 1; 
+
+    //return 
+    (productRepository.delete as jest.Mock).mockResolvedValue({affected: 1}); 
+
+    const result = await productService.deleteProduct(productId); 
+
+    //assertions
+    expect(productRepository.delete).toHaveBeenCalledWith(productId); 
+    expect(result).toEqual({affected: 1}); 
+  })
 });
