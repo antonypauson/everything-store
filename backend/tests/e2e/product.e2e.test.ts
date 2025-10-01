@@ -22,4 +22,23 @@ describe("Product E2E tests", () => {
     const res = await request(server).get("/");
     expect(res.statusCode).toEqual(200);
   });
+
+  it("should create product for POST /api/products", async () => {
+    const newProduct = {
+        name: 'testing product', 
+        description: 'testing product description',
+        price: 99999,
+    }
+    //request
+    const res = await request(server).post('/api/products').send(newProduct).expect(200); 
+
+    //assertions
+    expect(res.body).toBeDefined(); 
+    expect(res.body.id).toBeDefined(); //id check
+    expect(res.body.name).toEqual(newProduct.name); 
+    expect(res.body.price).toEqual(newProduct.price); 
+  })
+
+  
+
 });
