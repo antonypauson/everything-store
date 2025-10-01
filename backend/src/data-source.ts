@@ -15,7 +15,8 @@ export const AppDataSource = new DataSource({
   username: isTest ? process.env.DB_USERNAME_TEST : process.env.DB_USER,
   password: isTest ? process.env.DB_PASSWORD_TEST : process.env.DB_PASSWORD,
   database: isTest? process.env.DB_DATABASE_TEST : process.env.DB_NAME,
-  synchronize: false, //don't update schema automatically
+  synchronize: isTest, //update schema automatically,
+  dropSchema: isTest,
   logging: isTest? true : false,
   entities: [User, Product, Review],
   subscribers: [],
