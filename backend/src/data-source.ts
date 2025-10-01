@@ -4,15 +4,19 @@ import { User } from "./entity/User";
 import { Product } from "./entity/Product";
 import { Review } from "./entity/Review";
 
+const isTest = process.env.NODE_ENV === 'test';
+
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT || "5432", 10),
-  username: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: isTest ? process.env.DB_HOST_TEST : process.env.DB_HOST,
+  port: parseInt(
+    isTest ? process.env.DB_PORT_TEST || "5432" : process.env.DB_PORT || "5432", 10
+  ),
+  username: isTest ? process.env.DB_USERNAME_TEST : process.env.DB_USER,
+  password: isTest ? process.env.DB_PASSWORD_TEST : process.env.DB_PASSWORD,
+  database: isTest? process.env.DB_DATABASE_TEST : process.env.DB_NAME,
   synchronize: false, //don't update schema automatically
-  logging: false,
+  logging: isTest? true : false,
   entities: [User, Product, Review],
   subscribers: [],
   migrations: ["src/migration/*.ts"],
