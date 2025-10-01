@@ -11,8 +11,9 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true, 
+    "types": ["jest", "node"]
   },
-  "include": ["**/*.ts", "src/knexfile.ts"], 
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["**/*.ts"], 
+  "exclude": ["node_modules"]
 }
